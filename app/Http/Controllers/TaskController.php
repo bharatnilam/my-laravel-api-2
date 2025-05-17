@@ -50,6 +50,8 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         //
+    $task->load('user');
+
         return response()->json($task);
     }
 
