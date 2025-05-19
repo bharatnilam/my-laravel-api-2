@@ -2,38 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TaskResource;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * 
-     * @group Tasks
+     * Get a list of all tasks.
+     *
      */
     public function index()
     {
         //
         $tasks = Task::with('user')->get();
 
-        return response()->json($tasks);
+        // return response()->json($tasks);
+        return TaskResource::collection($tasks);
 
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new task.
      * 
-     * @group Tasks
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         //
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'sometimes|string',
-            'is_complete' => 'sometimes|boolean'
-        ]);
+        $validatedData = $request->validated();
 
         // $task = Task::create($validatedData);
         $task = new Task($validatedData);
@@ -44,36 +42,32 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'Task created successfully!',
-            'task' => $task
+            // 'task' => $task
+            'task' => new TaskResource($task)
         ], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Get details for a specific task.
      * 
-     * @group Tasks
      */
     public function show(Task $task)
     {
         //
     $task->load('user');
 
-        return response()->json($task);
+        // return response()->json($task);
+        return new TaskResource($task);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified task.
      * 
-     * @group Tasks
      */
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         //
-        $validatedData = $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string|nullable',
-            'is_complete' => 'sometimes|boolean'
-        ]);
+        $validatedData = $request->validated();
 
         $task->fill($validatedData);
 
@@ -81,14 +75,14 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'Task updated successfully',
-            'task' => $task
+            // 'task' => $task
+            'task' => new TaskResource($task)
         ]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a specific task.
      * 
-     * @group Tasks
      */
     public function destroy(Task $task)
     {
