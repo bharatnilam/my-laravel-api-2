@@ -9,6 +9,8 @@ class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * @group Tasks
      */
     public function index()
     {
@@ -21,6 +23,8 @@ class TaskController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * @group Tasks
      */
     public function store(Request $request)
     {
@@ -46,6 +50,8 @@ class TaskController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     * @group Tasks
      */
     public function show(Task $task)
     {
@@ -57,6 +63,8 @@ class TaskController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @group Tasks
      */
     public function update(Request $request, Task $task)
     {
@@ -79,6 +87,8 @@ class TaskController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @group Tasks
      */
     public function destroy(Task $task)
     {
