@@ -24,8 +24,6 @@ return [
         /*
          * API version.
          */
-        'title' => 'Project 1: Robust Backend API',
-        'description' => 'API documentation for the Task Management backend.',
         'version' => env('API_VERSION', '0.0.1'),
 
         /*
@@ -41,7 +39,7 @@ return [
         /*
          * Define the title of the documentation's website. App name is used when this config is `null`.
          */
-        'title' => null,
+        'title' => 'Task Management API',
 
         /*
          * Define the theme of the documentation. Available options are `light` and `dark`.
@@ -92,9 +90,6 @@ return [
      * ```
      */
     'servers' => null,
-    // 'servers' => [
-    //     ['url' => env('APP_URL', 'http://localhost:8000')]
-    // ],
 
     /**
      * Determines how Scramble stores the descriptions of enum cases.
