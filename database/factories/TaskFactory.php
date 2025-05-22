@@ -23,7 +23,11 @@ class TaskFactory extends Factory
             //
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'is_complete' => $this->faker->boolean()
+            // 'is_complete' => $this->faker->boolean()
+            'status' => $this->faker->randomElement(['pending', 'in_progress', 'completed', 'cancelled']),
+            'priority' => $this->faker->randomElement(['low', 'medium', 'high', 'urgent']),
+            'due_date' => $this->faker->dateTimeBetween('now', '+30 days'),
+            'user_id' => User::factory()
         ];
     }
 }
