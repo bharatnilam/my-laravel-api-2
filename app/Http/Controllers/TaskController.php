@@ -13,7 +13,6 @@ class TaskController extends Controller
     /**
      * Get a list of all tasks.
      *
-     * @return AnonymousResourceCollection
      */
     public function index()
     {
