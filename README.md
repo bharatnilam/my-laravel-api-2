@@ -1,66 +1,179 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Task Manager API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A robust and secure RESTful API for managing tasks, built with Laravel 10 and Sanctum authentication. This project provides endpoints for user authentication and full CRUD operations on tasks, complete with request validation, API resources, database migrations, seeders, and comprehensive tests.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* **User Authentication**: Issue and manage API tokens with Laravel Sanctum.
+* **Task Management**: Create, read, update, and delete tasks.
+* **Validation**: Requests validated via `StoreTaskRequest` and `UpdateTaskRequest`.
+* **API Resources**: Response transformation with `TaskResource` and `UserResource`.
+* **Database Migrations & Seeders**: Migrations for users, tokens, and tasks; seeders to populate sample data.
+* **Factories**: Quickly generate test data for users and tasks.
+* **Automated Tests**: Feature and unit tests covering authentication and task endpoints.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* PHP ^8.1
+* Composer
+* MySQL (or any supported database)
+* Node.js & npm (for frontend assets)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. **Clone the repository**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
 
-### Premium Partners
+2. **Install dependencies**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Contributing
+3. **Environment setup**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   * Copy `.env.example` to `.env`
+   * Configure your database credentials and other env variables
 
-## Code of Conduct
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Database migrations & seeding**
 
-## Security Vulnerabilities
+   ```bash
+   php artisan migrate --seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Build frontend assets** (optional)
 
-## License
+   ```bash
+   npm run dev
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Serve the application**
+
+   ```bash
+   php artisan serve
+   ```
+
+The API will be available at `http://localhost:8000`.
+
+---
+
+## 📐 Directory Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   └── TaskController.php
+│   ├── Middleware/
+│   └── Requests/
+│       ├── StoreTaskRequest.php
+│       └── UpdateTaskRequest.php
+├── Models/
+│   ├── User.php
+│   └── Task.php
+└── Resources/
+    ├── UserResource.php
+    └── TaskResource.php
+
+config/       Configuration files (Sanctum, database, cache, etc.)
+
+database/
+├── migrations/    Database schema definitions
+├── seeders/       Initial data seeders
+└── factories/     Model factories for testing
+
+tests/        Automated unit and feature tests
+public/       Front controller and assets
+resources/    Views & frontend scripts
+routes/       Route definitions (api.php, web.php)
+
+```
+
+---
+
+## 🔑 Authentication
+
+* **Issue Token**: `POST /api/login`
+
+  * **Body**: `email`, `password`
+  * **Response**: Bearer token
+
+* **Protected Routes**: Add `Authorization: Bearer {token}` header to all `/api/tasks` endpoints.
+
+---
+
+## 📋 API Endpoints
+
+| Method | Endpoint          | Description                    |
+| ------ | ----------------- | ------------------------------ |
+| POST   | `/api/login`      | Authenticate and get API token |
+| GET    | `/api/user`       | Get authenticated user profile |
+| GET    | `/api/tasks`      | List all tasks                 |
+| POST   | `/api/tasks`      | Create a new task              |
+| GET    | `/api/tasks/{id}` | Retrieve a specific task       |
+| PUT    | `/api/tasks/{id}` | Update a specific task         |
+| DELETE | `/api/tasks/{id}` | Delete a specific task         |
+
+**Request Validation**: Both create and update endpoints enforce rules defined in `StoreTaskRequest` and `UpdateTaskRequest`. Validation errors return status `422` with error details.
+
+**Response Format**: All successful responses wrap data in JSON resources:
+
+```json
+{
+  "data": {
+    // Task or User attributes
+  }
+}
+```
+
+---
+
+## 🧪 Running Tests
+
+This project includes both unit and feature tests using PHPUnit.
+
+```bash
+php artisan test
+# or
+vendor/bin/phpunit
+```
+
+Tests cover:
+
+* Authentication flows (issue token, access protected routes).
+* CRUD operations on tasks (including validation and 404 cases).
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature-name`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
